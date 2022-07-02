@@ -1,0 +1,19 @@
+{
+  "name": "be-valued",
+  "version": "0.0.0",
+  "description": "```html\r <form be-valued>\r     <input>\r </form>\r ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bahrus/be-valued.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bahrus/be-valued/issues"
+  },
+  "homepage": "https://github.com/bahrus/be-valued#readme"
+}
