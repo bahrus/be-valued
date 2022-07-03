@@ -1,10 +1,27 @@
 {
   "name": "be-valued",
   "version": "0.0.0",
-  "description": "```html\r <form be-valued>\r     <input>\r </form>\r ```",
+  "keywords": [
+    "web-components",
+    "web-component",
+    "custom-element",
+    "custom-elements",
+    "forms"
+  ],
+  "description": "Reflect the value of the input to the value attribute on input event.`",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node test/test-all.js",
+    "package-check": "package-check",
+    "serve": "node node_modules/may-it-serve/serve.js"
+  },
+  "dependencies": {
+    "be-decorated": "0.0.125",
+    "be-hive": "0.0.48"
+  },
+  "devDependencies": {
+    "may-it-serve": "0.0.0",
+    "@skypack/package-check": "0.2.2"
   },
   "repository": {
     "type": "git",
