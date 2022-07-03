@@ -9,7 +9,17 @@
     "forms"
   ],
   "description": "Reflect the value of the input to the value attribute on input event.`",
-  "main": "index.js",
+  "main": "be-valued.js",
+  "module": "be-valued.js",
+  "type": "module",
+  "exports":{
+    ".": "./be-valued.js",
+    "./be-valued.js": "./be-valued.js"
+  },
+  "files": [
+    "*.*"
+  ],
+  "types": "types.d.ts",
   "scripts": {
     "test": "node test/test-all.js",
     "package-check": "package-check",
