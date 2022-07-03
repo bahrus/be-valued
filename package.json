@@ -1,6 +1,6 @@
 {
   "name": "be-valued",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "keywords": [
     "web-components",
     "web-component",
@@ -12,7 +12,7 @@
   "main": "be-valued.js",
   "module": "be-valued.js",
   "type": "module",
-  "exports":{
+  "exports": {
     ".": "./be-valued.js",
     "./be-valued.js": "./be-valued.js"
   },
