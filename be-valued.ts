@@ -10,7 +10,7 @@ export class BeValued implements BeValuedActions{
         for(const type of on!){
             const ec = new AbortController();
             proxy.addEventListener(type, async e => {
-                await this.handleChange(pp, e.target);
+                await this.handleChange(pp, e.target as HTMLInputElement);
             }, {
                 signal: ec.signal,
             });
