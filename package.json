@@ -11,7 +11,6 @@
   "description": "Reflect the value of the input to the value attribute on input event.`",
   "main": "be-valued.js",
   "module": "be-valued.js",
-  "type": "module",
   "exports": {
     ".": "./be-valued.js",
     "./be-valued.js": "./be-valued.js"
@@ -21,17 +20,18 @@
   ],
   "types": "types.d.ts",
   "scripts": {
-    "test": "node test/test-all.js",
+    "test": "playwright test",
     "package-check": "package-check",
     "serve": "node node_modules/may-it-serve/serve.js"
   },
   "dependencies": {
-    "be-decorated": "0.0.125",
-    "be-hive": "0.0.48",
-    "trans-render": "0.0.538"
+    "be-decorated": "0.0.172",
+    "be-hive": "0.0.73",
+    "trans-render": "0.0.625"
   },
   "devDependencies": {
-    "may-it-serve": "0.0.0",
+    "may-it-serve": "0.0.3",
+    "@playwright/test": "1.27.1",
     "@skypack/package-check": "0.2.2"
   },
   "repository": {
