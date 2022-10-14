@@ -1,21 +1,22 @@
-import { define } from 'be-decorated/be-decorated.js';
+import { define } from 'be-decorated/DE.js';
 import { register } from 'be-hive/register.js';
 export class BeValued {
     #eventControllers = [];
-    async onOn({ on, proxy }) {
+    async onOn(pp) {
+        const { on, proxy } = pp;
         this.disconnect();
         for (const type of on) {
             const ec = new AbortController();
-            proxy.addEventListener(type, this.handleChange, {
+            proxy.addEventListener(type, async (e) => {
+                await this.handleChange(pp, e.target);
+            }, {
                 signal: ec.signal,
             });
             this.#eventControllers.push(ec);
         }
     }
-    handleChange = async (e) => {
+    async handleChange({ self, props, proxy }, target) {
         const { camelToLisp } = await import('trans-render/lib/camelToLisp.js');
-        const { props, proxy } = this;
-        const target = e.target;
         for (const prop of props) {
             const val = target[prop];
             const attr = camelToLisp(prop);
@@ -35,7 +36,7 @@ export class BeValued {
                     throw 'NI'; //not implemented
             }
         }
-    };
+    }
     disconnect() {
         for (const ec of this.#eventControllers) {
             ec.abort();
@@ -61,9 +62,9 @@ define({
                 props: ['value']
             },
             finale: 'finale',
-            actions: {
-                onOn: 'on',
-            }
+        },
+        actions: {
+            onOn: 'on',
         }
     },
     complexPropDefaults: {
