@@ -9,7 +9,7 @@
 		"strict": true,
 	},
 	"files":[
-		"be-valued2.ts"
+		"be-valued.ts"
 		
 	],
 	"exclude":[

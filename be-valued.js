@@ -1,22 +1,29 @@
-import { define } from 'be-decorated/DE.js';
+import { BE, propDefaults, propInfo } from 'be-enhanced/BE.js';
+import { XE } from 'xtal-element/XE.js';
 import { register } from 'be-hive/register.js';
-export class BeValued {
+export class BeValued extends BE {
+    static get beConfig() {
+        return {
+            parse: true,
+        };
+    }
     #eventControllers = [];
-    async onOn(pp) {
-        const { on, proxy } = pp;
-        this.disconnect();
+    async onOn(self) {
+        const { enhancedElement, on } = self;
+        this.#disconnect();
         for (const type of on) {
             const ec = new AbortController();
-            proxy.addEventListener(type, async (e) => {
-                await this.handleChange(pp, e.target);
+            enhancedElement.addEventListener(type, async (e) => {
+                await this.handleChange(self, e.target);
             }, {
                 signal: ec.signal,
             });
             this.#eventControllers.push(ec);
         }
     }
-    async handleChange({ self, props, proxy }, target) {
+    async handleChange(self, target) {
         const { camelToLisp } = await import('trans-render/lib/camelToLisp.js');
+        const { enhancedElement, props } = self;
         for (const prop of props) {
             const val = target[prop];
             const attr = camelToLisp(prop);
@@ -37,38 +44,34 @@ export class BeValued {
             }
         }
     }
-    disconnect() {
+    #disconnect() {
         for (const ec of this.#eventControllers) {
             ec.abort();
             this.#eventControllers = [];
         }
     }
-    finale(proxy, target, beDecorProps) {
-        this.disconnect();
+    detach(detachedElement) {
+        this.#disconnect();
     }
 }
 const tagName = 'be-valued';
 const ifWantsToBe = 'valued';
 const upgrade = 'form';
-define({
+const xe = new XE({
     config: {
         tagName,
         propDefaults: {
-            upgrade,
-            ifWantsToBe,
-            virtualProps: ['on', 'props'],
-            proxyPropDefaults: {
-                on: ['input'],
-                props: ['value']
-            },
-            finale: 'finale',
+            ...propDefaults,
+            on: ['input'],
+            props: ['value']
+        },
+        propInfo: {
+            ...propInfo
         },
         actions: {
             onOn: 'on',
         }
     },
-    complexPropDefaults: {
-        controller: BeValued,
-    }
+    superclass: BeValued
 });
 register(ifWantsToBe, upgrade, tagName);
