@@ -11,28 +11,27 @@ Reflect the value of the input to the value attribute on input event.
 Useful for styling, persistence of innerHTML.
 
 [![Playwright Tests](https://github.com/bahrus/be-valued/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-valued/actions/workflows/CI.yml)
-
-<a href="https://nodei.co/npm/be-valued/"><img src="https://nodei.co/npm/be-valued.png"></a>
-
-Size of package, including custom element behavior framework (be-decorated):
-
+[![NPM version](https://badge.fury.io/js/be-valued.png)](http://badge.fury.io/js/be-valued)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-valued?style=for-the-badge)](https://bundlephobia.com/result?p=be-valued)
-
-Size of new code in this package:
-
 <img src="http://img.badgesize.io/https://cdn.jsdelivr.net/npm/be-valued?compression=gzip">
 
-## Running locally
+## Viewing Locally
 
-1.  Do a git clone or a git fork of this repository.
-2.  Install node.js
-3.  Run "npm install" from location of folder created in step 1.
-4.  Run npm run serve.  Open browser to http://localhost:3030/demo/
+Any web server that serves static files will do but...
 
-## Using from ESM Module:
+1.  Install git.
+2.  Fork/clone this repo.
+3.  Install node.
+4.  Open command window to folder where you cloned this repo.
+5.  > npm install
+6.  > npm run serve
+7.  Open http://localhost:3030/demo in a modern browser.
+
+## Importing in ES Modules:
 
 ```JavaScript
 import 'be-valued/be-valued.js';
+
 ```
 
 ## Using from CDN:
