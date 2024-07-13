@@ -1,4 +1,4 @@
-# be-valued
+# be-valued (💎)
 
 Reflect the value of the input to the value attribute on input event.
 
