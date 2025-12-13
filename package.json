@@ -13,7 +13,9 @@
   "module": "be-valued.js",
   "exports": {
     ".": "./be-valued.js",
-    "./be-valued.js": "./be-valued.js"
+    "./be-valued.js": "./be-valued.js",
+    "./emc.js": "./emc.js",
+    "./💍.js": "./💍.js"
   },
   "files": [
     "*.js",
