@@ -8,11 +8,21 @@ import { BeHive, seed, MountObserver } from 'be-hive/be-hive.js';
  */
 export const emc = {
     base: 'be-valued',
+    branches: ['', 'on', 'props'],
     map: {
         '0.0': {
-            instanceOf: 'String',
+            instanceOf: 'Object',
+            mapsTo: '.',
+        },
+        '1.0': {
+            instanceOf: 'StringOrStrings',
             mapsTo: 'on',
             valIfFalsy: ['input'],
+        },
+        '2.0': {
+            instanceOf: 'StringOrStrings',
+            mapsTo: 'props',
+            valIfFalsy: ['value'],
         }
     },
     enhPropKey: 'beValued',
