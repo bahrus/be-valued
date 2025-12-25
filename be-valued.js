@@ -32,6 +32,7 @@ class BeValued extends BE {
     de = de;
 
     #ac = new AbortController();
+    #initialValues = new WeakMap();
 
     #disconnect(){
         this.#ac.abort();
@@ -43,12 +44,34 @@ class BeValued extends BE {
      * @param {BAP} self 
      * @returns 
      */
-    hydrate(self){
+    async hydrate(self){
         this.#disconnect();
-        const {enhancedElement, on} = self;
+        const {enhancedElement, on, props} = self;
+        const {camelToKebab} = await import('mount-observer/refid/camelToKebab.js');
+        
+        // Store initial values of all form controls
+        if(enhancedElement instanceof HTMLFormElement){
+            const controls = enhancedElement.elements;
+            for(const control of controls){
+                if(control instanceof HTMLInputElement || control instanceof HTMLTextAreaElement || control instanceof HTMLSelectElement){
+                    const initialValue = control.value;
+                    this.#initialValues.set(control, {
+                        value: initialValue,
+                        props: new Map(props.map(prop => [prop, control.getAttribute(camelToKebab(prop))]))
+                    });
+                }
+            }
+        }
+        
         for(const e of on){
             enhancedElement.addEventListener(e, this, {signal: this.#ac.signal});
         }
+        
+        // Listen for reset events to restore initial values
+        if(enhancedElement instanceof HTMLFormElement){
+            enhancedElement.addEventListener('reset', this, {signal: this.#ac.signal});
+        }
+        
         return /** @type {PAP} */ ({
             resolved: true,
         });
@@ -62,6 +85,29 @@ class BeValued extends BE {
         const self = /** @type {BAP} */(/** @type {any} */ (this));
         const {enhancedElement, props} = self;
         const {target} = e;
+        
+        // Handle reset event
+        if(e.type === 'reset'){
+            const {camelToKebab} = await import('mount-observer/refid/camelToKebab.js');
+            const controls = enhancedElement.elements;
+            for(const control of controls){
+                const initialData = this.#initialValues.get(control);
+                if(initialData){
+                    control.value = initialData.value;
+                    // Restore initial attributes
+                    initialData.props.forEach((attrValue, prop) => {
+                        const attr = camelToKebab(prop);
+                        if(attrValue === null){
+                            control.removeAttribute(attr);
+                        }else{
+                            control.setAttribute(attr, attrValue);
+                        }
+                    });
+                }
+            }
+            return;
+        }
+        
         if(!(target instanceof Element)) return;
         const {camelToKebab} = await import('mount-observer/refid/camelToKebab.js');
         for(const prop of props){
