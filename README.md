@@ -11,6 +11,16 @@ Reflect the value of the input to the value attribute on input event.
 Useful for styling, persistence of innerHTML.  Works with any element whose string "value" can be determined by doing oElement.value, and which emits event "input" when the value changes.  Both "value" and "input" are configurable.
 
 
+The enhancement continues to honor reset input elements:
+
+```html
+<input type="reset" value="Reset the form" />
+```
+
+by intercepting the reset event and implementing that functionality within the enhancement.
+
+
+
 [![Playwright Tests](https://github.com/bahrus/be-valued/actions/workflows/CI.yml/badge.svg?branch=baseline)](https://github.com/bahrus/be-valued/actions/workflows/CI.yml)
 [![NPM version](https://badge.fury.io/js/be-valued.png)](http://badge.fury.io/js/be-valued)
 [![How big is this package in your project?](https://img.shields.io/bundlephobia/minzip/be-valued?style=for-the-badge)](https://bundlephobia.com/result?p=be-valued)
