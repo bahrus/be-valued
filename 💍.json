@@ -1,0 +1,47 @@
+{
+    "enhConfig": {
+        "enhKey": "💍",
+        "spawn": "be-valued/be-valued.js",
+        "withAttrs": {
+            "base": "💍",
+            "on": "${base}-on",
+            "_on": {
+                "instanceOf": "Array",
+                "valIfNull": [
+                    "input"
+                ]
+            },
+            "props": "${base}-props",
+            "_props": {
+                "instanceOf": "Array",
+                "valIfNull": [
+                    "value"
+                ]
+            }
+        }
+    },
+    "customData": {
+        "weakRef": {
+            "properties": [
+                "enhancedElement"
+            ]
+        },
+        "actions": {
+            "hydrate": {
+                "ifAllOf": [
+                    "on",
+                    "enhancedElement",
+                    "props"
+                ]
+            }
+        },
+        "defaultPropVals": {
+            "on": [
+                "input"
+            ],
+            "props": [
+                "value"
+            ]
+        }
+    }
+}
