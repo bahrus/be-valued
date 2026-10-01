@@ -14,6 +14,15 @@ function camelToKebab(s){
 }
 
 /**
+ * Programmatic callers may pass a single event / prop name rather than an array.
+ * @param {string | string[]} s
+ * @returns {string[]}
+ */
+function toArray(s){
+    return typeof s === 'string' ? [s] : s;
+}
+
+/**
  * @implements {Actions}
  * @implements {EventListenerObject}
  */
@@ -39,7 +48,9 @@ class BeValued {
      * @param {PAP} initVals 
      */
     async init(self, enhancedElement, ctx, initVals){
-        const {customData} = /** @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions>>} */ (ctx.emc);
+        // ctx.emc is only populated when spawned via an attribute (be-hive / mount-observer).
+        // Programmatic attachment (enh.get / enh.set) only passes ctx.config -- see def.js.
+        const {customData} = /** @type {EMC<any, AllProps, Element, RAConfig<AllProps, Actions>>} */ (ctx.emc || ctx.config);
         /**
          * @type {RoundaboutOptions}
          */
@@ -52,7 +63,8 @@ class BeValued {
                 ...initVals
             }
         };
-        (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
+        await (await import('roundabout-lib/roundabout.js')).roundabout(raOptions);
+        self.initialized = true;
     }
 
     #disconnect(){
@@ -66,7 +78,9 @@ class BeValued {
      */
     async hydrate(self){
         this.#disconnect();
-        const {enhancedElement, on, props} = self;
+        const {enhancedElement} = self;
+        const on = toArray(self.on);
+        const props = toArray(self.props);
 
         // Store initial values of all form controls
         if(enhancedElement instanceof HTMLFormElement){
@@ -101,7 +115,8 @@ class BeValued {
      */
     async handleEvent(e){
         const self = /** @type {AP} */(/** @type {any} */ (this));
-        const {enhancedElement, props} = self;
+        const {enhancedElement} = self;
+        const props = toArray(self.props);
         const {target} = e;
 
         // Handle reset event

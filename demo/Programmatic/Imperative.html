@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmatic imperative</title>
+    <!-- #include virtual="/imports.html" -->
+</head>
+<body>
+    <!-- No be-valued attribute, and no be-hive.  Type, then inspect the input's value attribute. -->
+    <form id="form">
+        <label>
+            test
+            <input>
+        </label>
+        <label>
+            check
+            <input type="checkbox">
+        </label>
+        <input type="reset" value="Reset the form">
+    </form>
+    <script type=module>
+        import {defBeValued} from '/def.js';
+        const emc = await defBeValued(document.body);
+        const beValued = form.enh.get(emc);
+        Object.assign(beValued, {
+            on: 'change',
+            props: ['value', 'checked'],
+        });
+        console.log(form.enh.beValued);
+    </script>
+</body>
+</html>

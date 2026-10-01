@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmatic Imperative</title>
+    <!-- #include virtual="/imports.html" -->
+</head>
+<body>
+    <!-- Fully imperative attachment: no attribute, no `.set` proxy -- just enh.get(emc) plus direct property assignment. 'on' is given as a single string, and a boolean prop (checked) is reflected too. -->
+    <form id="form">
+        <input id="text" name="text">
+        <input id="check" name="check" type="checkbox">
+        <input id="reset" type="reset">
+    </form>
+    <script type=module>
+        import {defBeValued} from '/def.js';
+        const emc = await defBeValued(document.body);
+        Object.assign(form.enh.get(emc), {
+            on: 'change',
+            props: ['value', 'checked'],
+        });
+    </script>
+</body>
+</html>

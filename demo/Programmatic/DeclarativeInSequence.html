@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmatic declarative in sequence</title>
+    <!-- #include virtual="/imports.html" -->
+</head>
+<body>
+    <!-- No be-valued attribute, and no be-hive.  Type, then inspect the input's value attribute. -->
+    <form id="form">
+        <label>
+            test
+            <input>
+        </label>
+
+        <input type="reset" value="Reset the form">
+    </form>
+    <script type=module>
+        import {defBeValued} from '/def.js';
+        await defBeValued(document.body);
+        //only the first call needs to use .set
+        //it triggers the attachment of the enhancement.
+        form.enh.set.beValued.on = ['input'];
+        console.log(form.enh.beValued);
+    </script>
+</body>
+</html>

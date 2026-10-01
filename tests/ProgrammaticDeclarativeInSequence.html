@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programmatic Declarative In Sequence</title>
+    <!-- #include virtual="/imports.html" -->
+</head>
+<body>
+    <!-- No be-valued attribute, and no be-hive. The config is registered first, then a property is set via the `.set` proxy, which attaches the enhancement. -->
+    <form id="form">
+        <input id="text" name="text">
+        <input id="check" name="check" type="checkbox">
+        <input id="reset" type="reset">
+    </form>
+    <script type=module>
+        import {defBeValued} from '/def.js';
+        await defBeValued(document.body);
+        // Only the first write needs to go through `.set` -- it triggers attachment.
+        form.enh.set.beValued.on = ['input'];
+    </script>
+</body>
+</html>
